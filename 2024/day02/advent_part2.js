@@ -999,14 +999,6 @@ const unparsedInput = [[74, 76, 78, 79, 76],
 [47, 50, 53, 54, 57, 58, 60, 61],
 [59, 58, 55, 53, 52]];
 
-
-// const unparsedInput = [[1, 2, 3, 7, 8, 9]] // Should be 0
-// const unparsedInput = [[1, 2, 3, 4, 3, 2]] // Should be 0
-// const unparsedInput = [[1, 2, 3, 4, 6, 9]] // Should be 1
-// const unparsedInput = [[9, 8, 7, 5, 2, 1]] // Should be 1
-
-//const unparsedInput = [[7, 6, 4, 2, 1], [1, 2, 7, 8, 9], [9, 7, 6, 2, 1], [1, 3, 2, 4, 5], [8, 6, 4, 4, 1], [1, 3, 6, 7, 9]]
-
 const isValidField = (lineToTest) => {
     let j = 0;
     let isUpOrDown = 0;
@@ -1049,10 +1041,19 @@ let amountOfCorrect = 0;
 while (++i < unparsedInput.length) {
     if (isValidField(unparsedInput[i])) {
         amountOfCorrect = amountOfCorrect + 1;
+    } else {
+        // Now we try to remove each level one by one, and see what would work
+        let j = -1;
+        while (++j < unparsedInput[i].length) {
+            let newLine = [...unparsedInput[i]];
+            newLine.splice(j, 1);
+
+            if (isValidField(newLine)) {
+                amountOfCorrect = amountOfCorrect + 1;
+                break;
+            }
+        }
     }
 }
 
 console.log(amountOfCorrect);
-
-// 701 => Too high
-// 287 => Too high
