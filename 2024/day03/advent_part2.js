@@ -6,15 +6,14 @@ const donts = doDontsInput.split("don't()");
 
 let i = -1;
 while (++i < donts.length) {
-    const splitDont = donts[i].split("do()");
-
-    if (splitDont.length === 1 && i !== 0) {
+    if (i === 0) {
+        // The first line, before any don't(), is always to be included
+        input = input + donts[i];
         continue;
     }
 
-    if (i !== 0) {
-        splitDont.splice(0, 1);
-    }
+    const splitDont = donts[i].split("do()");
+    splitDont.splice(0, 1);
 
     let j = -1;
     while (++j < splitDont.length) {
